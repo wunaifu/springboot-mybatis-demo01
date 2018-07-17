@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wnf.springbootmybatisdemo01.mapper.UserDao">
+    <insert id="addUser" parameterType="com.wnf.springbootmybatisdemo01.entity.User">
+        <!--当出现主键冲突时(即重复时)，会报错;不想让程序报错，加入ignore-->
+        INSERT ignore INTO user(username,address,sex,birthday)
+        VALUES (#{username},#{address},#{sex},#{birthday});
+    </insert>
+    <!--通过phone删除User-->
+    <delete id="deleteUserById" parameterType="int">
+        <!--具体SQL语句-->
+        DELETE FROM user
+        WHERE id=#{id};
+    </delete>
+
+    <!--通过phone和password更新User密码-->
+    <update id="updateUserById" parameterType="com.wnf.springbootmybatisdemo01.entity.User">
+        <!--具体SQL语句-->
+        UPDATE user
+        SET username = #{username}
+        WHERE id=#{id};
+    </update>
+
+
+    <select id="findAll" resultType="com.wnf.springbootmybatisdemo01.entity.User">
+        SELECT *
+        FROM user
+        ORDER BY birthday DESC
+    </select>
+
+    <select id="findUserById" resultType="com.wnf.springbootmybatisdemo01.entity.User" parameterType="int">
+        SELECT *
+        FROM user
+        where id=#{id}
+    </select>
+    <select id="findUserByName" resultType="com.wnf.springbootmybatisdemo01.entity.User">
+
+    </select>
+</mapper>
